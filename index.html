@@ -1,0 +1,39 @@
+<html>
+    <head></head>
+    <body>
+        <script>
+         function format_ts(ts) {
+             return {
+                 'raw': ts.toString(),
+                 'iso8601': ts.toISOString(),
+                 'json_ts': ts.toJSON(),
+                 'locale_ts': ts.toLocaleString(),
+                 'locale_date': ts.toLocaleDateString(),
+                 'locale_date_alt': ts.toLocaleDateString(Intl, {
+                     year: 'numeric',
+                     month: 'short',
+                     day: 'numeric',
+                     weekday: 'short',
+                 }),
+                 'locale_time': ts.toLocaleTimeString(),
+                 'locale_time_alt': ts.toLocaleTimeString(Intl, {
+                     hour: 'numeric',
+                     minute: 'numeric',
+                 }),
+                 'tz_offset': ts.getTimezoneOffset(),
+             }};
+
+         var details = {
+             Intl: Intl,
+             UA: navigator.userAgent,
+             now: format_ts(new Date()),
+             ts_utc: format_ts(new Date('2017-01-01T00:00:00Z')),
+             ts_plusthree: format_ts(new Date('2017-01-01T03:00:00+0300')),
+         };
+
+         var el = document.createElement('pre');
+         el.textContent = JSON.stringify(details, null, 4);
+         document.body.appendChild(el);
+        </script>
+    </body>
+</html>
